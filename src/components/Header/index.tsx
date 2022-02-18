@@ -12,15 +12,15 @@ export function Header() {
       alignItems="flex-end"
     >
       <Heading
-        h='65px'
+        h={['40px', '65px']}
         color="white"
         fontWeight='black'
-        fontSize='6xl'
+        fontSize={['4xl', '6xl']}
         letterSpacing='-0.5px'
         background='red.700'
         pl={1.5}
         pr={2}
-        m='0 0 32px 32px'
+        m={[ '0 0 24px 24px','0 0 32px 32px']}
       >
         MARVEL API
       </Heading>

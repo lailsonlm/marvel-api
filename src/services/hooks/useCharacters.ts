@@ -26,6 +26,8 @@ const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY
 const publicKey = process.env.NEXT_PUBLIC_KEY
 const ts = new Date().getTime();
 const hash = md5(ts+privateKey+publicKey)
+let limit= 30
+
 
 export async function getCharacters(offset: number) {
   const response = await axios.get<CharactersProps>('https://gateway.marvel.com/v1/public/characters', {
@@ -33,7 +35,7 @@ export async function getCharacters(offset: number) {
       apikey: publicKey,
       ts,
       hash,
-      limit: 30,
+      limit,
       offset,
     },
     headers: {

@@ -1,13 +1,13 @@
-import { Box, Flex, Grid, GridItem, Heading, Text, Image, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Stack, Button, Divider, Spinner } from '@chakra-ui/react';
-import axios from 'axios';
-import { GetServerSideProps, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { dehydrate, useQuery } from 'react-query';
+import { Flex, Heading, Text, Spinner, calc } from '@chakra-ui/react';
+import { GetStaticProps } from 'next';
+import { useState } from 'react';
+import { dehydrate } from 'react-query';
+
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { ItemList } from '../components/ItemList';
 import { Pagination } from '../components/Pagination';
+
 import { getCharacters, useCharacters } from '../services/hooks/useCharacters';
 import { queryClient } from '../services/queryClient';
 
@@ -20,9 +20,9 @@ export default function Home() {
   return (
     <Flex 
       w="full"
-      h="full"
       minH="100vh"
       flexDir="column"
+      overflow="hidden"
     >
       
       <Header />
@@ -30,13 +30,17 @@ export default function Home() {
       <Flex
         w="full"
         maxW= 'container.xl'
-        m="40px auto 0"
+        m={["24px auto 0 16px", "40px auto 0"]}
         align="center"
+        pl={[0, 8, 10, 4]}
       >
         <Heading fontSize='2xl'>Characters Marvel</Heading>
         { !isLoading && isFetching && <Spinner size='sm' color='red.700' ml="4" /> }
       </Flex>
-      
+      <Flex
+        flexDir="column"
+        minH={"50vh"}
+      >
       { isLoading ? (
         <Flex justify="center">
           <Spinner color='red.700' size='lg' />
@@ -59,6 +63,9 @@ export default function Home() {
         />
       }
 
+      </Flex>
+      
+
       {!isLoading && 
         <Footer attributionText={data!.attributionText} />    
       }
@@ -67,7 +74,7 @@ export default function Home() {
 }
 
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async (context) => {
 
   await queryClient.prefetchQuery(['characters', 0], () => getCharacters(0))
 

@@ -42,6 +42,8 @@ export function Pagination({ data, currentPage, onPageChange, onOffsetChange, of
       justify="space-between" 
       align="center" 
       spacing="6"
+      pl={[0, 8, 10, 4]}
+      pr={[0, 8, 10, 4]}
       >
         <Box>
           <strong>{data.offset + 1}</strong> - <strong>{data.limit + data.offset}</strong> de <strong>{data.total}</strong> 
