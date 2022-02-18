@@ -43,7 +43,7 @@ export default function Home() {
           <Text>Falha ao obter dados dos personagens</Text>
         </Flex>
       ) : 
-        <ItemList results={data?.data.results} />
+        <ItemList results={data!.data.results} />
       }
 
       {!isLoading &&
