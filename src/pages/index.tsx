@@ -1,18 +1,21 @@
 import { Box, Flex, Grid, GridItem, Heading, Text, Image, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Stack, Button, Divider, Spinner } from '@chakra-ui/react';
 import axios from 'axios';
+import { GetServerSideProps, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { dehydrate, useQuery } from 'react-query';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { ItemList } from '../components/ItemList';
 import { Pagination } from '../components/Pagination';
-import { useCharacters } from '../services/hooks/useCharacters';
+import { getCharacters, useCharacters } from '../services/hooks/useCharacters';
+import { queryClient } from '../services/queryClient';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1)
   const [offset, setOffset] = useState(0)
 
-  const { data, isLoading, isFetching, error } = useCharacters(offset, currentPage)
+  const { data, isLoading, isFetching, error } = useCharacters(offset)
 
   return (
     <Flex 
@@ -61,4 +64,16 @@ export default function Home() {
       }
     </Flex>
   )
+}
+
+
+export async function getStaticProps() {
+
+  await queryClient.prefetchQuery(['characters', 0], () => getCharacters(0))
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
 }
