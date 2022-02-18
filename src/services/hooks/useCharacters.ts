@@ -30,7 +30,7 @@ const hash = md5(ts+privateKey+publicKey)
 
 export function useCharacters(offset: number, currentPage: number) {
 return useQuery(['characters', offset], async () => {
-  const response = await axios.get<CharactersProps>('http://gateway.marvel.com/v1/public/characters', {
+  const response = await axios.get<CharactersProps>('https://gateway.marvel.com/v1/public/characters', {
     params: {
       apikey: publicKey,
       ts,
