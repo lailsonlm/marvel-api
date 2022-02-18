@@ -1,7 +1,7 @@
 import { Button, Stack, Box, Text } from "@chakra-ui/react"
 
 interface PaginationProps {
-  data?: {
+  data: {
     total: number,
     offset: number,
     limit: number,
@@ -23,7 +23,7 @@ export function Pagination({ data, currentPage, onPageChange, onOffsetChange, of
       .filter(page => page > 0)
   }
 
-  const lastPage = Math.floor(data?.total / data?.limit);
+  const lastPage = Math.floor(data!.total / data!.limit);
 
   const previousPage = currentPage > 1 
   ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1)
@@ -44,7 +44,7 @@ export function Pagination({ data, currentPage, onPageChange, onOffsetChange, of
       spacing="6"
       >
         <Box>
-          <strong>{data?.offset + 1}</strong> - <strong>{data?.limit + data?.offset}</strong> de <strong>{data?.total}</strong> 
+          <strong>{data.offset + 1}</strong> - <strong>{data.limit + data.offset}</strong> de <strong>{data.total}</strong> 
         </Box>
         
         <Stack direction="row" spacing="2">
@@ -81,7 +81,7 @@ export function Pagination({ data, currentPage, onPageChange, onOffsetChange, of
             </Button>
           }
 
-          {!isNaN(data?.limit) &&
+          {!isNaN(data.limit) &&
             <Button 
               size="sm" 
               fontSize="xs" 
@@ -121,7 +121,7 @@ export function Pagination({ data, currentPage, onPageChange, onOffsetChange, of
               _hover={{ bg: 'gray.500' }}
               onClick={() => {
                 onPageChange(lastPage)
-                onOffsetChange(data?.total - 30)
+                onOffsetChange(data.total - 30)
               }}
               >{lastPage}</Button>
             </>

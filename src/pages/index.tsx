@@ -14,7 +14,6 @@ export default function Home() {
 
   const { data, isLoading, isFetching, error } = useCharacters(offset, currentPage)
 
-
   return (
     <Flex 
       w="full"
@@ -22,6 +21,7 @@ export default function Home() {
       minH="100vh"
       flexDir="column"
     >
+      
       <Header />
       
       <Flex
@@ -46,9 +46,9 @@ export default function Home() {
         <ItemList results={data?.data.results} />
       }
 
-      {!isNaN(data?.data.limit) && !isLoading &&
+      {!isLoading &&
         <Pagination 
-          data={data?.data} 
+          data={data!.data} 
           currentPage={currentPage}
           offset={offset}
           onPageChange={setCurrentPage}
@@ -57,7 +57,7 @@ export default function Home() {
       }
 
       {!isLoading && 
-        <Footer attributionText={data?.attributionText} />    
+        <Footer attributionText={data!.attributionText} />    
       }
     </Flex>
   )
