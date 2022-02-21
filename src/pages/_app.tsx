@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { Hydrate, QueryClientProvider } from 'react-query'
 import { theme } from '../../styles/theme'
 import { queryClient } from '../services/queryClient'
+import '../../styles/global.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

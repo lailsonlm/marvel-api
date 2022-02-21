@@ -22,7 +22,6 @@ export default function Home() {
       w="full"
       minH="100vh"
       flexDir="column"
-      overflow="hidden"
     >
       
       <Header />
@@ -30,9 +29,10 @@ export default function Home() {
       <Flex
         w="full"
         maxW= 'container.xl'
-        m={["24px auto 0 16px", "40px auto 0"]}
+        m={["24px auto 0 0px", "40px auto 0"]}
         align="center"
-        pl={[0, 8, 10, 4]}
+        pl={[4, 8, 10, 4]}
+        
       >
         <Heading fontSize='2xl'>Characters Marvel</Heading>
         { !isLoading && isFetching && <Spinner size='sm' color='red.700' ml="4" /> }

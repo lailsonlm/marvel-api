@@ -1,5 +1,6 @@
 import { InfoIcon } from "@chakra-ui/icons"
-import { Box, Grid, GridItem, Image, Text, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Flex, useBreakpointValue} from "@chakra-ui/react"
+import { Box, Grid, GridItem, Image, Text, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Flex, useBreakpointValue } from "@chakra-ui/react"
+
 interface ItemListProps {
   results?: Results
 }
@@ -15,7 +16,7 @@ type Results = {
 }[]
 
 export function ItemList({ results }: ItemListProps) {
-  const isWideVersion =useBreakpointValue({
+  const isWideVersion = useBreakpointValue({
     base: false,
     sm: true,
   })
@@ -24,90 +25,20 @@ export function ItemList({ results }: ItemListProps) {
     <Box
       w="full"
       maxW= 'container.xl'
-      m={["24px auto", "8px auto", "8px auto", "20px auto"]}
+      m={["8px auto", "8px auto", "8px auto", "20px auto"]}
       h="100%"
       p={[0, 4]}
       overflow="hidden"
       >
-        {!isWideVersion ? 
-          <Flex
-          overflowX= "scroll"
-          w="full"
-          pl="16px"
-          >
-            {results?.map(data => {
-            return (
-              <Flex 
-                flexDir="column"
-                key={data.id}
-                maxW="full"
-                h='100%'
-                borderRadius={4}
-                p={2}
-                mr={2}
-                background="gray.800"
-                alignItems="center"                      
-              >
-                <Image
-                  boxSize='150px'
-                  objectFit='cover'
-                  borderRadius={4}
-                  src={data.thumbnail.path + '/standard_xlarge.' + data.thumbnail.extension}
-                  alt={data.name}    
-                />
-
-                <Flex
-                  w="150px"
-                  h='60px'
-                  alignItems='center'
-                  justifyContent='center'
-                  mt={2}
-                  overflow="hidden"
-                  pl={2} 
-                  pr={2} 
-                >
-                  
-                  <Text
-                    p={2}
-                    fontSize='sm'
-                    fontWeight='bold'
-                    textAlign="center"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                    color="gray.400"
-                  >
-                    {data.name}
-                  </Text> 
-                  <Popover>
-                  <PopoverTrigger>
-                    <InfoIcon color="gray.300" cursor="pointer" _hover={{color: "red.700"}} />
-                  </PopoverTrigger>
-                  <PopoverContent bg="gray.200" _focus={{ outline: 'none'}} color="gray.900" borderColor="gray.400">
-                    <PopoverArrow bg="gray.200" borderColor="gray.400" />
-                    <PopoverCloseButton _focus={{ outline: 'none'}} />
-                    <PopoverHeader borderColor="gray.400" fontSize='sm' >{data.name}</PopoverHeader>
-                      <PopoverBody>
-                        <Text pl={2} pr={2} fontSize='sm' textAlign="justify">
-                          {data.description ? data.description : 'Without description'}
-                        </Text>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
-                </Flex>               
-              </Flex>
-            )
-          })}
-          </Flex>
-          :
-        
         <Grid 
-          gridTemplateColumns={['repeat(1, 1fr)','repeat(3, 1fr)', 'repeat(4, 1fr)', 'repeat(5, 1fr)', 'repeat(6, 1fr)']} 
+          gridTemplateColumns={['repeat(2, 1fr)', 'repeat(3, 1fr)', 'repeat(4, 1fr)', 'repeat(5, 1fr)', 'repeat(6, 1fr)']} 
           gap={[2, 2, 4]}
           w="full"
           maxW= 'container.xl'
           m="0 auto"
           alignItems="flex-start"
           p={[4, 4, 6, 0]}
+          position="relative"
         >
           {results?.map(data => {
             return (
@@ -115,15 +46,16 @@ export function ItemList({ results }: ItemListProps) {
                 key={data.id}
                 display='flex'
                 flexDir="column"
-                maxW="full"
+                w="full"
                 h='100%'
                 borderRadius={4}
                 p={2}
                 background="gray.800"
-                alignItems="center"                      
+                alignItems="center"
+                boxShadow='md'                      
               >
                 <Image
-                  boxSize='200px'
+                  boxSize={['150px' ,'200px']}
                   objectFit='cover'
                   borderRadius={4}
                   src={data.thumbnail.path + '/standard_xlarge.' + data.thumbnail.extension}
@@ -132,7 +64,7 @@ export function ItemList({ results }: ItemListProps) {
       
                 <Flex
                   w="full"
-                  h='40px'
+                  h='55px'
                   alignItems='center'
                   justifyContent='center'
                   mt={2}
@@ -142,7 +74,7 @@ export function ItemList({ results }: ItemListProps) {
                 >
                   <Text
                     p={2}
-                    fontSize='md'
+                    fontSize={['sm' ,'md']}
                     fontWeight='bold'
                     textAlign="center"
                     overflow="hidden"
@@ -151,16 +83,16 @@ export function ItemList({ results }: ItemListProps) {
                   >
                     {data.name}
                   </Text> 
-                  <Popover>
+                  <Popover trigger="hover">
                   <PopoverTrigger>
                     <InfoIcon color="gray.300" cursor="pointer" _hover={{color: "red.700"}} />
                   </PopoverTrigger>
-                  <PopoverContent bg="gray.200" _focus={{ outline: 'none'}} color="gray.900" borderColor="gray.400">
+                  <PopoverContent bg="gray.200" _focus={{ outline: 'none'}} color="gray.900" borderColor="gray.400" w={["3xs", "xs", "sm", 'md']} ml={2} mr={2}>
                     <PopoverArrow bg="gray.200" borderColor="gray.400" />
                     <PopoverCloseButton _focus={{ outline: 'none'}} />
-                    <PopoverHeader borderColor="gray.400">Description</PopoverHeader>
+                    <PopoverHeader borderColor="gray.400" fontSize={['xs', 'xs', 'sm', 'md']} overflow="hidden" whiteSpace= "nowrap" textOverflow="ellipsis" w="90%" >{data.name}</PopoverHeader>
                     <PopoverBody>
-                      <Text pl={2} pr={2} fontSize='md' textAlign="justify">
+                      <Text pl={2} pr={2} fontSize={['xs', 'xs', 'sm', 'md']} textAlign="justify">
                         {data.description ? data.description : 'Without description'}
                       </Text>
                     </PopoverBody>
@@ -171,7 +103,6 @@ export function ItemList({ results }: ItemListProps) {
             )
           })}
         </Grid>
-        }
       </Box>
   )
 }
